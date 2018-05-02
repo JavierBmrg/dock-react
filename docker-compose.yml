@@ -1,0 +1,23 @@
+version: '2'
+
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  app-client:
+    container_name: ${PROJECT_NAME}-${FRONT_TECH}-front
+    build:
+      context:  ./
+      dockerfile: ./docker/Dockerfile
+    networks: 
+      - app-network
+    ports:
+      - "${REACT_HOST_HTTP_PORT}:3000"
+    volumes:
+      - '.:/var/srv/app'
+      - '/var/srv/app/node_modules'
+    environment: 
+      - NODE_ENV=development
+      
+    
